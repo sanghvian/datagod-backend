@@ -16,7 +16,7 @@ from langchain.prompts.chat import (
 )
 import json
 load_dotenv()
-chat = ChatOpenAI(model_name='gpt-4', temperature=0)
+chat = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -71,7 +71,7 @@ def build_chain():
     region = os.environ["AWS_REGION"]
     kendra_index_id = os.environ["KENDRA_INDEX_ID"]
 
-    llm = OpenAI(model_name="gpt-4",
+    llm = OpenAI(model_name="gpt-3.5-turbo-16k",
                  temperature=0, max_tokens=4000)
 
     retriever = KendraIndexRetriever(
