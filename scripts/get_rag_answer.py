@@ -18,9 +18,6 @@ import json
 load_dotenv()
 chat = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 
-nltk.download('stopwords')
-nltk.download('punkt')
-
 stop_words = set(stopwords.words('english'))
 
 def preprocess_text(text):
