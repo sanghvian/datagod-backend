@@ -1,13 +1,11 @@
 from scripts.kendra_index_retriever import KendraIndexRetriever
 from langchain.chains import ConversationalRetrievalChain
 from langchain.prompts import PromptTemplate
-from langchain import OpenAI
+from langchain.chat_models import ChatOpenAI
 import os
 from dotenv import load_dotenv
-import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from langchain.chat_models import ChatOpenAI
 from langchain import LLMChain
 from langchain.prompts.chat import (
     ChatPromptTemplate,
@@ -16,7 +14,7 @@ from langchain.prompts.chat import (
 )
 import json
 load_dotenv()
-chat = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
+chat = ChatOpenAI(model_name='gpt-4-0613', temperature=0)
 
 stop_words = set(stopwords.words('english'))
 
@@ -68,9 +66,6 @@ def build_chain():
     region = os.environ["AWS_REGION"]
     kendra_index_id = os.environ["KENDRA_INDEX_ID"]
 
-    llm = OpenAI(model_name="gpt-3.5-turbo-16k",
-                 temperature=0, max_tokens=4000)
-
     retriever = KendraIndexRetriever(
         kendraindex=kendra_index_id,
         awsregion=region,
@@ -91,7 +86,7 @@ def build_chain():
     )
 
     return ConversationalRetrievalChain.from_llm(
-        llm=llm,  
+        llm=chat,  
         retriever=retriever, 
         condense_question_prompt=PROMPT, return_source_documents=True
     )
