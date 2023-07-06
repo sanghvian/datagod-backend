@@ -67,7 +67,7 @@ def process_file():
     file = request.files['file']
     file_type = request.form['file_type']
     file_name = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
+    file.save(os.path.join('/tmp', file_name))
 
     # Determine the file loader based on file type
     if file_type == '.pdf':
@@ -77,7 +77,7 @@ def process_file():
     elif file_type == '.ppt':
         loader = UnstructuredPowerPointLoader(file_path=file_name)
     else:
-        return 'Unsupported file type', 400
+        return 'Unsupported filie type', 400
 
     documents = loader.load()
     text_splitter = CharacterTextSplitter(chunk_size=2048, chunk_overlap=0)
