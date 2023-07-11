@@ -3,5 +3,5 @@ For running the project, we use Gunicorn. There are 2 steps
 1. Install gunicorn
 `sudo apt install gunicorn` 
 
-2. Run the project
+2. Run the project in detached mode
 `gunicorn -w 4 -b 0.0.0.0:5000 app:app -D`
