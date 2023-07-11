@@ -9,11 +9,11 @@ pinecone.init(
     api_key=os.environ.get("PINECONE_API_KEY"),  # find at app.pinecone.io
     environment=os.environ.get("PINECONE_ENV") # next to api key in console
 )
-index_name = "nptel-updated"
+index_name = "chat-verlab"
 pinecone_index = pinecone.Index(index_name=index_name)
 embed_model = "text-embedding-ada-002"
 
-def retrieve(query):
+def pine_retrieve(query):
     res = openai.Embedding.create(
         input=[query],
         engine=embed_model
@@ -51,9 +51,8 @@ def retrieve(query):
                 "\n\n---\n\n".join(contexts) +
                 prompt_end
             )
-    # TODO: Write a logging function that helps log the question and answer to mixpanel
-    courses = [text_to_dict(course) for course in contexts]
-    return courses,prompt
+    
+    return prompt
 
 
 def text_to_dict(text):
