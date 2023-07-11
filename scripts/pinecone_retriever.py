@@ -1,6 +1,7 @@
 import openai
 import pinecone
 import os
+from scripts.openai_complete import openai_complete
 
 limit = 3750
 
@@ -51,8 +52,8 @@ def pine_retrieve(query):
                 "\n\n---\n\n".join(contexts) +
                 prompt_end
             )
-    
-    return prompt
+    answer = openai_complete(prompt)
+    return answer
 
 
 def text_to_dict(text):
@@ -76,5 +77,4 @@ def text_to_dict(text):
         
         # Add the key-value pair to the result dictionary
         result[key] = value
-
     return result

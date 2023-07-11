@@ -133,9 +133,9 @@ def pinechat():
     
     # Return the query result as JSON
     data = pine_retrieve(english_statement)
-    prompt = data
+    answer = data
     response = {
-        'answer':prompt
+        'answer':answer
     }
     return jsonify(response), 200
 
