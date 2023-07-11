@@ -23,3 +23,7 @@ Under "System variables", find the variable named "Path" and click "Edit".
 Click "New" and add the path to the Graphviz bin folder.
 Click "OK" to close all the windows.
 After completing these steps, restart your Python environment, and the error should be resolved.
+
+
+altgraph
+macholib
