@@ -87,7 +87,8 @@ def build_chain():
     return ConversationalRetrievalChain.from_llm(
         llm=chat,  
         retriever=retriever, 
-        condense_question_prompt=PROMPT, return_source_documents=True
+        condense_question_prompt=PROMPT, 
+        return_source_documents=True
     )
 
 
