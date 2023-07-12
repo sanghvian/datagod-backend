@@ -17,7 +17,6 @@ from scripts.get_rag_answer import get_rag_answer
 from scripts.openai_complete import openai_complete
 from scripts.pinecone_retriever import pine_retrieve
 
-
 load_dotenv()
 
 # Set up Google Cloud credentials

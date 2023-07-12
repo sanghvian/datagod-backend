@@ -14,6 +14,8 @@ from langchain.prompts.chat import (
 )
 import json
 load_dotenv()
+
+
 chat = ChatOpenAI(model_name='gpt-4-0613', temperature=0)
 
 stop_words = set(stopwords.words('english'))
@@ -23,9 +25,6 @@ def preprocess_text(text):
     filtered_tokens = [token for token in tokens if token.lower() not in stop_words and token.isalnum()]
     preprocessed_text = ' '.join(filtered_tokens)
     return preprocessed_text
-
-
-load_dotenv()
 
 MAX_HISTORY_LENGTH = 6
 
@@ -67,10 +66,10 @@ def build_chain():
     kendra_index_id = os.environ["KENDRA_INDEX_ID"]
 
     retriever = KendraIndexRetriever(
-        kendraindex=kendra_index_id,
-        awsregion=region,
-        k=6,
-        return_source_documents=True
+        kendraindex="0d80fe53-4036-404a-8c9d-94737357a0f2",
+        awsregion="ap-south-1",
+        # k=6,
+        # return_source_documents=True
     )
 
     prompt_template = """
