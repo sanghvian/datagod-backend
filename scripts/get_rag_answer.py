@@ -66,10 +66,10 @@ def build_chain():
     kendra_index_id = os.environ["KENDRA_INDEX_ID"]
 
     retriever = KendraIndexRetriever(
-        kendraindex="0d80fe53-4036-404a-8c9d-94737357a0f2",
-        awsregion="ap-south-1",
-        # k=6,
-        # return_source_documents=True
+        kendraindex=kendra_index_id,
+        awsregion=region,
+        k=6,
+        return_source_documents=True
     )
 
     prompt_template = """
