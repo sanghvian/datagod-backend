@@ -3,8 +3,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from langchain.schema import Document
-from scripts.modified_retriever import BaseRetriever
+from langchain.schema import BaseRetriever, Document
 
 from scripts.kendra_results import kendra_query, kendra_client
 import boto3
