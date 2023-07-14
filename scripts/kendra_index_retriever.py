@@ -18,6 +18,7 @@ class KendraIndexRetriever(BaseRetriever):
             kendraIndexRetriever = KendraIndexRetriever()
 
     """
+
     kendraindex: str
     """Kendra index id"""
     awsregion: str
@@ -29,13 +30,7 @@ class KendraIndexRetriever(BaseRetriever):
     kclient: Any
     """ boto3 client for Kendra. """
 
-    def __init__(
-            self, 
-            kendraindex, 
-            awsregion, 
-            k=3, 
-            return_source_documents=False
-        ):
+    def __init__(self, kendraindex, awsregion, k=3, return_source_documents=False):
         self.kendraindex = kendraindex
         self.awsregion = awsregion
         self.k = k
