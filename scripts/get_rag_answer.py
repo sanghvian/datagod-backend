@@ -10,7 +10,7 @@ import json
 load_dotenv()
 
 
-chat = ChatOpenAI(model_name='gpt-4-0613', temperature=0)
+chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
 stop_words = set(stopwords.words('english'))
 
@@ -30,7 +30,7 @@ def build_chain():
         kendraindex=kendra_index_id,
         awsregion=region,
         k=6,
-        return_source_documents=True
+        return_source_documents=True,
     )
 
     prompt_template = """You are a chatbot answering questions over enterprise data. Here's the question you have been asked - {question}. From whatever limited information is given, your task is to retrieve the relevant documents and generate an answer. The response should be STRICTLY in the following JSON format.
