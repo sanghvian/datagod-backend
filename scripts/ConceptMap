@@ -1,0 +1,43 @@
+digraph ConceptGraph {
+	A [label=Wildfires]
+	B [label=Occurrence]
+	C [label=Natural]
+	D [label="Human Activity"]
+	A -> B
+	B -> C
+	B -> D
+	E [label="Elements for Wildfire Start"]
+	F [label=Fuel]
+	G [label="Air (Oxygen)"]
+	H [label="Heat Sources"]
+	A -> E
+	E -> F
+	E -> G
+	E -> H
+	I [label="Live or Dead Trees"]
+	J [label="Dry Vegetation"]
+	K [label="Other Organic Matter"]
+	F -> I
+	F -> J
+	F -> K
+	L [label="Lightning Strikes"]
+	M [label="Human Sources (e.g., Campfires, Cigarettes)"]
+	H -> L
+	H -> M
+	N [label="Natural Wildfires"]
+	O [label="Low Precipitation, Dry Weather, Droughts"]
+	P [label="Dry Vegetation as Fuel"]
+	Q [label="Lightning Strikes Ignition"]
+	R [label="Aid: Strong Winds, Elevated Temperatures"]
+	A -> N
+	N -> O
+	N -> P
+	N -> Q
+	N -> R
+	S [label="Vegetation Dryness"]
+	T [label="Increase in Wildfire Hazard"]
+	U [label="65% of California’s Vegetation drier in June 2021 than previous year"]
+	A -> S
+	S -> T
+	S -> U
+}
