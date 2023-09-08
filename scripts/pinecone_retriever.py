@@ -1,7 +1,7 @@
 import openai
 import pinecone
 import os
-from scripts.openai_complete import openai_complete
+from scripts.templates.openai_complete import openai_complete
 
 limit = 3750
 

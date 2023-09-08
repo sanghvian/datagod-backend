@@ -10,12 +10,13 @@ from langchain.document_loaders import PyPDFLoader, UnstructuredImageLoader, Uns
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Pinecone
-from scripts.concept_map_maker import get_concept_map_code, generate_concept_map_image_and_upload_to_s3
+from scripts.infograph_maker import get_concept_map_code, generate_concept_map_image_and_upload_to_s3
+from scripts.get_infograph_diagram import get_infograph_code, generate_infograph_image_and_upload_to_s3
 import pinecone
 
 # Custom modules
 from scripts.get_rag_answer import get_rag_answer
-from scripts.openai_complete import openai_complete
+from scripts.templates.openai_complete import openai_complete
 from scripts.pinecone_retriever import pine_retrieve
 
 load_dotenv()
@@ -65,6 +66,22 @@ def get_concept_map_image_url():
     # Return the query result as JSON
     img_url = generate_concept_map_image_and_upload_to_s3(code,"sangkar-datagod-bucket")
     return jsonify({'img_url':img_url}), 200
+
+
+@app.route('/infograph', methods=['POST'])
+def get_infograph_image_url():
+    # data = request.get_json()
+    # prompt = data.get('prompt')
+
+    # if not prompt:
+    #     return jsonify({'error': 'Statement is missing'}), 400
+
+    # # Return the query result as JSON
+    # code = get_concept_map_code(prompt)
+    # # Return the query result as JSON
+    # img_url = generate_concept_map_image_and_upload_to_s3(code,"sangkar-datagod-bucket")
+    return jsonify({'img_url':"https://ankitsanghvi-website-images.s3.ap-south-1.amazonaws.com/PieChart.png"}), 200
+
 
 
 @app.route('/llm', methods=['POST'])
