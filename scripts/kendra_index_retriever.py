@@ -29,11 +29,14 @@ class KendraIndexRetriever(BaseRetriever):
     """Whether source documents to be returned """
     kclient: Any
     """ boto3 client for Kendra. """
+    token: str
+    """ boto3 client for Kendra. """
 
-    def __init__(self, kendraindex, awsregion, k=3, return_source_documents=False):
+    def __init__(self, kendraindex, awsregion, k=3, return_source_documents=False, token=""):
         self.kendraindex = kendraindex
         self.awsregion = awsregion
         self.k = k
+        self.token = token
         self.return_source_documents = return_source_documents
         self.kclient = kendra_client(self.kendraindex, self.awsregion)
 
@@ -42,7 +45,7 @@ class KendraIndexRetriever(BaseRetriever):
 
         docs = get_relevant_documents('This is my query')
         """
-        docs = kendra_query(self.kclient, query, self.k, self.kendraindex)
+        docs = kendra_query(self.kclient, query, self.k, self.kendraindex, self.token)
         return docs
 
     async def aget_relevant_documents(self, query: str) -> List[Document]:

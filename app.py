@@ -10,6 +10,7 @@ from langchain.document_loaders import PyPDFLoader, UnstructuredImageLoader, Uns
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Pinecone
+from scripts.concept_map_maker import get_concept_map_code, generate_concept_map_image_and_upload_to_s3
 import pinecone
 
 # Custom modules
@@ -41,13 +42,30 @@ def hello():
 def get_ans_and_docs():
     data = request.get_json()
     prompt = data.get('query')
+    token = data.get('token')
 
     if not prompt:
         return jsonify({'error': 'Statement is missing'}), 400
 
     # Return the query result as JSON
-    result = get_rag_answer(prompt)
+    result = get_rag_answer(prompt, token)
     return jsonify(result), 200
+
+
+@app.route('/concept-map', methods=['POST'])
+def get_concept_map_image_url():
+    data = request.get_json()
+    prompt = data.get('prompt')
+
+    if not prompt:
+        return jsonify({'error': 'Statement is missing'}), 400
+
+    # Return the query result as JSON
+    code = get_concept_map_code(prompt)
+    # Return the query result as JSON
+    img_url = generate_concept_map_image_and_upload_to_s3(code,"sangkar-datagod-bucket")
+    return jsonify({'img_url':img_url}), 200
+
 
 @app.route('/llm', methods=['POST'])
 def questions_gen():

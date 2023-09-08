@@ -19,8 +19,15 @@ def get_top_n_results(resp, count):
     combined_text = "Document Title: " + doc_title + "\nDocument Excerpt: \n" + doc_excerpt + "\n"
     return {"page_content":combined_text, "metadata":{"source":doc_uri, "title": doc_title, "excerpt": doc_excerpt, "type": r_type}}
 
-def kendra_query(kclient, kquery, kcount, kindex_id):
-    response = kclient.query(IndexId=kindex_id, QueryText=kquery.strip())
+def kendra_query(kclient, kquery, kcount, kindex_id, token):
+    print('I AM TOKEN', token)
+    response = kclient.query(
+        IndexId=kindex_id, 
+        QueryText=kquery.strip(),
+        UserContext={
+            "Token":token
+        },
+    )
     if len(response["ResultItems"]) > kcount:
         r_count = kcount
     else:

@@ -22,7 +22,7 @@ def preprocess_text(text):
 
 MAX_HISTORY_LENGTH = 6
 
-def build_chain():
+def build_chain(token):
     region = os.environ["AWS_REGION"]
     kendra_index_id = os.environ["KENDRA_INDEX_ID"]
 
@@ -31,9 +31,10 @@ def build_chain():
         awsregion=region,
         k=6,
         return_source_documents=True,
+        token=token
     )
 
-    prompt_template = """You are a chatbot answering questions over enterprise data. Here's the question you have been asked - {question}. From whatever limited information is given, your task is to retrieve the relevant documents and generate an answer. The response should be STRICTLY in the following JSON format.
+    prompt_template = """You are a chatbot answering questions over enterprise data. Here's the question you have been asked - {question}. From whatever limited information is given, your task is to retrieve the UNIQUE relevant documents and generate an answer. The response should be STRICTLY in the following JSON format.
             {{
                 answer: answer string,
                 source_documents:[{{ source:string URL which is the metadata source of the feature, title: string - title of the source document, excerpt: string - excerpt of the source document }}] - where each source document has a unique title, document, string,summary:string which has to be technically sound
@@ -54,8 +55,8 @@ def run_chain(chain, prompt: str, history=[]):
 
 
 
-def get_rag_answer(query):
-    qa = build_chain()
+def get_rag_answer(query, token):
+    qa = build_chain(token)
     chat_history = []
     if (query.strip().lower().startswith("new search:")):
         query = query.strip().lower().replace("new search:", "")
